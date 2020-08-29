@@ -21,9 +21,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "~@/assets/style/helper.scss";
+
 nav {
+  @extend %outerShadow;
   display: flex;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
   font-size: 12px;
 
   > .item {
@@ -40,7 +42,7 @@ nav {
   }
 
   > .item.selected {
-    color: salmon;
+    color: $color-highlight;
   }
 }
 </style>
