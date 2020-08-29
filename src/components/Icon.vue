@@ -5,7 +5,7 @@
 </template>
 
 <script>
-let importAll = (requireContext) => {
+const importAll = (requireContext) => {
   requireContext.keys().forEach(requireContext);
 };
 try {
