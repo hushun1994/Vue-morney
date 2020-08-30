@@ -2,7 +2,7 @@
   <Layout class-prefix="layout">
     <NumberPad @submit="saveRecord" :value.sync="record.amount" />
     <Types :value.sync="record.type" />
-    <Notes @update:value="onUpdateNotes" />
+    <Notes fieldName="备注" placeholder="请在这里输入" @update:value="onUpdateNotes" />
     <Tags :data-source.sync="tags" @update:value="onUpdateTags" />
   </Layout>
 </template>
@@ -18,13 +18,12 @@ import recordListModel from "@/models/recordListModel";
 import tagListModel from "@/models/tagListModel";
 
 const recordList: RecordItem[] = recordListModel.fetch();
-const tagList: RecordItem[] = tagListModel.fetch();
+const tagList = tagListModel.fetch();
 
 @Component({
   components: { NumberPad, Types, Notes, Tags },
 })
 export default class Money extends Vue {
-  // tags = ["衣", "食", "住", "行"];
   tags = tagList;
   recordList: RecordItem[] = recordList;
 
