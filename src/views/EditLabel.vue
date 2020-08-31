@@ -24,13 +24,15 @@ import Button from "@/components/Button.vue";
   components: { FormItem, Button },
 })
 export default class EditLabel extends Vue {
+  tag?: { id: string; name: string } = undefined;
+
   created() {
     const id = this.$route.params.id;
     tagListModel.fetch();
     const tags = tagListModel.data;
     const tag = tags.filter((t) => t.id === id)[0];
     if (tag) {
-      console.log(tag);
+      this.tag = tag;
     } else {
       this.$router.replace("/404");
     }
