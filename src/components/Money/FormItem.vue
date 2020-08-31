@@ -22,7 +22,6 @@ export default class FormItem extends Vue {
   @Prop({ required: true }) fieldName!: string;
   @Prop() placeholder?: string;
 
-  @Watch("value")
   onValueChanged(value: string) {
     this.$emit("update:value", value);
   }
@@ -32,7 +31,6 @@ export default class FormItem extends Vue {
 <style lang="scss" scoped>
 .FormItem {
   display: block;
-  // background: #f5f5f5;
   font-size: 14px;
   padding-left: 16px;
   display: flex;
