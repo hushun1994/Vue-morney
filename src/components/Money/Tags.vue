@@ -21,7 +21,12 @@ import Vue from "vue";
 import { Component, Prop } from "vue-property-decorator";
 import store from "@/store/index2";
 
-@Component
+@Component({
+  // computed: {
+  //   tagList() {
+  //   }
+  // }
+})
 export default class Tags extends Vue {
   tagList = store.fetchTags();
   selectedTags: string[] = [];

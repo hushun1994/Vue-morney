@@ -35,6 +35,10 @@ export default class Money extends Vue {
     amount: 0,
   };
 
+  created() {
+    this.$store.commit("fetchRecords");
+  }
+
   onUpdateNotes(value: string) {
     this.record.notes = value;
   }
@@ -44,7 +48,8 @@ export default class Money extends Vue {
   }
 
   saveRecord() {
-    store.createRecord(this.record);
+    // store.createRecord(this.record);
+    this.$store.commit("createRecord", this.record);
   }
 }
 </script>
