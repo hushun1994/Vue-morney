@@ -31,8 +31,8 @@ import store from "@/store/index2";
 export default class EditLabel extends Vue {
   created() {
     const id = this.$route.params.id;
+    this.$store.commit("fetchTags");
     this.$store.commit("setCurrentTag", id);
-    console.log(this.tag);
     if (!this.tag) {
       this.$router.replace("/404");
     }
@@ -42,16 +42,14 @@ export default class EditLabel extends Vue {
   }
   updateTag(name: string) {
     if (this.tag) {
-      store.updateTag(this.tag.id, name);
+      const id = this.tag.id;
+      this.$store.commit("updateTag", { id, name });
     }
   }
   remove() {
     if (this.tag) {
-      if (store.removeTag(this.tag.id)) {
-        this.$router.back();
-      } else {
-        window.alert("删除失败");
-      }
+      this.$store.commit("removeTag", this.tag.id);
+      this.$router.back();
     }
   }
   goBack() {
