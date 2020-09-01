@@ -49,8 +49,9 @@ export default class Tags extends Vue {
       } else {
         return false;
       }
+    } else {
+      this.$store.commit("createTag", name);
     }
-    this.$store.commit("createTag", name);
   }
 }
 </script>
