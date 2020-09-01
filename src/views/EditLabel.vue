@@ -5,7 +5,12 @@
       <span class="title">编辑标签</span>
     </div>
     <div class="form-wrapper">
-      <FormItem :value="tag.name" @update:value="updateTag" fieldName="标签名" placeholder="请输入标签名" />
+      <FormItem
+        :value="tag.name"
+        @update:value="updateTag"
+        fieldName="标签名"
+        placeholder="请输入标签名"
+      />
     </div>
     <div class="button-wrapper">
       <Button @click="remove">删除标签</Button>
@@ -24,14 +29,18 @@ import store from "@/store/index2";
   components: { FormItem, Button },
 })
 export default class EditLabel extends Vue {
-  tag?: Tag = undefined;
-
   created() {
-    this.tag = store.findTag(this.$route.params.id);
+    const id = this.$route.params.id;
+    this.$store.commit("setCurrentTag", id);
+    console.log(this.tag);
     if (!this.tag) {
       this.$router.replace("/404");
     }
   }
+  get tag() {
+    return this.$store.state.currentTag;
+  }
+  // set tag() {}
   updateTag(name: string) {
     if (this.tag) {
       store.updateTag(this.tag.id, name);

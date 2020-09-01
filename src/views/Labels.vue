@@ -1,8 +1,13 @@
 <template>
   <Layout>
     <div class="tags">
-      <router-link class="tag" v-for="tag in tags" :key="tag.id" :to="`/labels/edit/${tag.id}`">
-        <span>{{tag.name}}</span>
+      <router-link
+        class="tag"
+        v-for="tag in tags"
+        :key="tag.id"
+        :to="`/labels/edit/${tag.id}`"
+      >
+        <span>{{ tag.name }}</span>
         <Icon name="right"></Icon>
       </router-link>
     </div>
@@ -16,19 +21,30 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import Button from "@/components/Button.vue";
-import store from "@/store/index2";
 
 @Component({
   components: { Button },
+  computed: {
+    tags() {
+      return this.$store.state.tagList;
+    },
+  },
 })
 export default class Labels extends Vue {
-  tags = store.tagList;
+  created() {
+    this.$store.commit("fetchTags");
+  }
 
   createTag() {
     const name = window.prompt("请输入标签名");
-    if (name) {
-      store.createTag(name);
+    if (!name) {
+      if (name === "") {
+        window.alert("标签名不能为空");
+      } else {
+        return false;
+      }
     }
+    this.$store.commit("createTag", name);
   }
 }
 </script>
