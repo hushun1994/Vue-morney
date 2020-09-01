@@ -40,7 +40,6 @@ export default class EditLabel extends Vue {
   get tag() {
     return this.$store.state.currentTag;
   }
-  // set tag() {}
   updateTag(name: string) {
     if (this.tag) {
       store.updateTag(this.tag.id, name);
