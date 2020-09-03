@@ -3,14 +3,10 @@
     <div class="navBar">
       <Icon class="leftIcon" name="left" @click.native="goBack" />
       <span class="title">编辑标签</span>
+      <Icon class="confirmIcon" name="confirm" />
     </div>
     <div class="form-wrapper">
-      <FormItem
-        :value="tag.name"
-        @update:value="updateTag"
-        fieldName="标签名"
-        placeholder="请输入标签名"
-      />
+      <FormItem :value="tag.name" @update:value="updateTag()" fieldName="标签名" placeholder="请输入标签名" />
     </div>
     <div class="button-wrapper">
       <Button @click="remove">删除标签</Button>
@@ -23,7 +19,6 @@ import Vue from "vue";
 import { Component } from "vue-property-decorator";
 import FormItem from "@/components/Money/FormItem.vue";
 import Button from "@/components/Button.vue";
-import store from "@/store/index2";
 
 @Component({
   components: { FormItem, Button },
@@ -40,8 +35,12 @@ export default class EditLabel extends Vue {
   get tag() {
     return this.$store.state.currentTag;
   }
+  // set tag(name) {
+  //   this.$store.state.currentTag = name;
+  // }
   updateTag(name: string) {
     if (this.tag) {
+      console.log(this.tag.name, 1);
       const id = this.tag.id;
       this.$store.commit("updateTag", { id, name });
     }
@@ -49,7 +48,7 @@ export default class EditLabel extends Vue {
   remove() {
     if (this.tag) {
       this.$store.commit("removeTag", this.tag.id);
-      this.$router.back();
+      this.$router.push("/labels");
     }
   }
   goBack() {
@@ -62,13 +61,13 @@ export default class EditLabel extends Vue {
 .navBar {
   text-align: center;
   font-size: 16px;
-  position: relative;
-  padding: 12px 16px;
+  padding: 8px 16px;
   background: #fff;
-  .leftIcon {
-    position: absolute;
-    top: 16px;
-    left: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .confirmIcon {
+    font-size: 30px;
   }
 }
 .form-wrapper {

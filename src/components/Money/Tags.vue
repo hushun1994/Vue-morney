@@ -7,18 +7,16 @@
       <li
         v-for="tag in tagList"
         :key="tag.id"
-        :class="{ selected: selectedTags.indexOf(tag) >= 0 }"
+        :class="{ selected: selectedTags.indexOf(tag) >= 0}"
         @click="toggle(tag)"
-      >
-        {{ tag.name }}
-      </li>
+      >{{ tag.name }}</li>
     </ul>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import { Component, Prop } from "vue-property-decorator";
+import { Component, Prop, Watch } from "vue-property-decorator";
 
 @Component
 export default class Tags extends Vue {
@@ -32,14 +30,23 @@ export default class Tags extends Vue {
     return this.$store.state.tagList;
   }
 
+  // @Watch("selectedTags")
+  // updateSelectedTags() {
+  //   this.$store.commit("setSelectedTag", this.selectedTags);
+  // }
+
   toggle(tag: string) {
     const index = this.selectedTags.indexOf(tag);
+    // console.log(tag);
+    // const { id, name } = tag;
+    // console.log(id, name);
     if (index >= 0) {
       this.selectedTags.splice(index, 1);
     } else {
       this.selectedTags.push(tag);
     }
     this.$emit("update:value", this.selectedTags);
+    // console.log(this.selectedTags[0].id);
   }
   create() {
     const name = window.prompt("请输入标签名");

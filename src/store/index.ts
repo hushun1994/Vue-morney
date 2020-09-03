@@ -6,17 +6,12 @@ import router from "@/router";
 
 Vue.use(Vuex);
 
-type RootState = {
-  recordList: RecordItem[];
-  tagList: Tag[];
-  currentTag?: Tag;
-};
-
 const store = new Vuex.Store({
   state: {
     recordList: [],
     tagList: [],
     currentTag: undefined,
+    selectedTags: [],
   } as RootState,
   mutations: {
     fetchRecords(state) {
@@ -24,10 +19,10 @@ const store = new Vuex.Store({
         window.localStorage.getItem("recordList") || "[]"
       ) as RecordItem[];
     },
-    createRecord(state, record: RecordItem) {
+    createRecord(state, record) {
       const record2: RecordItem = clone(record);
       record2.createAt = new Date();
-      state.recordList && state.recordList.push(record2);
+      state.recordList.push(record2);
       store.commit("saveRecords");
     },
     saveRecords(state) {
@@ -45,11 +40,12 @@ const store = new Vuex.Store({
       const names = state.tagList.map((item) => item.name);
       if (names.indexOf(name) >= 0) {
         window.alert("标签重复了");
+      } else {
+        const id = createId().toString();
+        state.tagList.push({ id: id, name: name });
+        store.commit("saveTags");
+        window.alert("添加成功");
       }
-      const id = createId().toString();
-      state.tagList.push({ id: id, name: name });
-      store.commit("saveTags");
-      window.alert("添加成功");
     },
     saveTags(state) {
       window.localStorage.setItem("tagList", JSON.stringify(state.tagList));
@@ -63,9 +59,9 @@ const store = new Vuex.Store({
       if (idList.indexOf(id) >= 0) {
         const names = state.tagList.map((item) => item.name);
         if (names.indexOf(name) >= 0) {
-          return "duplicated";
           window.alert("标签名重复了");
         } else {
+          // console.log(name, 2);
           const tag = state.tagList.filter((item) => item.id === id)[0];
           tag.name = name;
           store.commit("saveTags");
@@ -88,9 +84,11 @@ const store = new Vuex.Store({
         window.alert("删除失败");
       }
     },
+    setSelectedTag(state, tags: string[]) {
+      state.selectedTags = tags;
+      console.log(tags);
+    },
   },
-  // actions: {},
-  // modules: {},
 });
 
 export default store;
