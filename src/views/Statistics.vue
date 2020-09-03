@@ -33,4 +33,7 @@ export default class Statistics extends Vue {
     }
   }
 }
+::v-deep li.interval-tabs-item {
+  height: 48px;
+}
 </style>
