@@ -17,7 +17,7 @@ import recordTypeList from "@/constants/recordTypeList";
 })
 export default class Statistics extends Vue {
   type = "-";
-  interval = "按天";
+  interval = "day";
   intervalList = intervalList;
   recordTypeList = recordTypeList;
 }
