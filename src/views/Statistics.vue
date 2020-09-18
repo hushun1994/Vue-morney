@@ -32,7 +32,16 @@ import clone from "@/lib/clone";
 })
 export default class Statistics extends Vue {
   tagString(tags: Tag[]) {
-    return tags.length === 0 ? "无" : tags.join(",");
+    return tags
+      .map((item) => {
+        return item.name;
+      })
+      .reduce((result, current, index) => {
+        return result.concat(
+          index !== tags.length - 1 ? [current, ","] : [current]
+        );
+      }, [] as any)
+      .join("");
   }
 
   beautify(string: string) {

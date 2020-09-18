@@ -27,7 +27,6 @@ nav {
   @extend %outerShadow;
   display: flex;
   font-size: 12px;
-
   > .item {
     width: 33.333333%;
     display: flex;
@@ -40,7 +39,6 @@ nav {
       height: 32px;
     }
   }
-
   > .item.selected {
     color: $color-highlight;
   }

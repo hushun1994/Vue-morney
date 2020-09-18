@@ -20,6 +20,8 @@ import { Component, Prop, Watch } from "vue-property-decorator";
 
 @Component
 export default class Tags extends Vue {
+  @Prop() value!: string[];
+
   selectedTags: string[] = [];
 
   created() {
@@ -30,10 +32,10 @@ export default class Tags extends Vue {
     return this.$store.state.tagList;
   }
 
-  // @Watch("selectedTags")
-  // updateSelectedTags() {
-  //   this.$store.commit("setSelectedTag", this.selectedTags);
-  // }
+  @Watch("value")
+  updateSelectedTags() {
+    this.selectedTags = this.value;
+  }
 
   toggle(tag: string) {
     const index = this.selectedTags.indexOf(tag);
@@ -44,6 +46,7 @@ export default class Tags extends Vue {
     }
     this.$emit("update:value", this.selectedTags);
   }
+
   create() {
     const name = window.prompt("请输入标签名");
     if (!name) {
@@ -82,7 +85,7 @@ export default class Tags extends Vue {
       margin-right: 12px;
       margin-top: 4px;
       &.selected {
-        background: darken($bg, 20%);
+        background: darken($bg, 25%);
       }
     }
   }

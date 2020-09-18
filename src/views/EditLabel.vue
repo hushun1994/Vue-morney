@@ -3,10 +3,16 @@
     <div class="navBar">
       <Icon class="leftIcon" name="left" @click.native="goBack" />
       <span class="title">编辑标签</span>
-      <Icon class="confirmIcon" name="confirm" />
+      <Icon />
     </div>
     <div class="form-wrapper">
-      <FormItem :value="tag.name" @update:value="updateTag()" fieldName="标签名" placeholder="请输入标签名" />
+      <FormItem
+        :value="tag.name"
+        type="text"
+        @update:value="updateTag"
+        fieldName="标签名"
+        placeholder="请输入标签名"
+      />
     </div>
     <div class="button-wrapper">
       <Button @click="remove">删除标签</Button>
@@ -35,12 +41,8 @@ export default class EditLabel extends Vue {
   get tag() {
     return this.$store.state.currentTag;
   }
-  // set tag(name) {
-  //   this.$store.state.currentTag = name;
-  // }
   updateTag(name: string) {
     if (this.tag) {
-      console.log(this.tag.name, 1);
       const id = this.tag.id;
       this.$store.commit("updateTag", { id, name });
     }
@@ -73,6 +75,7 @@ export default class EditLabel extends Vue {
 .form-wrapper {
   background: #fff;
   margin-top: 8px;
+  padding-left: 14px;
 }
 .button-wrapper {
   text-align: center;

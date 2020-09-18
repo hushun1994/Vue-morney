@@ -50,11 +50,7 @@ export default class NumberPad extends Vue {
     this.output += input;
   }
   remove() {
-    if (this.output.length === 1) {
-      this.output = "0";
-    } else {
-      this.output = this.output.slice(0, -1);
-    }
+    this.output = this.output.length === 1 ? "0" : this.output.slice(0, -1);
   }
   clear() {
     this.output = "0";
@@ -124,6 +120,14 @@ export default class NumberPad extends Vue {
       }
       &:nth-child(12) {
         background: darken($bg, 5% * 6);
+      }
+    }
+    @media (max-height: 570px) {
+      > button {
+        height: 50px;
+        &.ok {
+          height: 100px;
+        }
       }
     }
   }
