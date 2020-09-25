@@ -7,9 +7,11 @@
       <li
         v-for="tag in tagList"
         :key="tag.id"
-        :class="{ selected: selectedTags.indexOf(tag) >= 0}"
+        :class="{ selected: selectedTags.indexOf(tag) >= 0 }"
         @click="toggle(tag)"
-      >{{ tag.name }}</li>
+      >
+        {{ tag.name }}
+      </li>
     </ul>
   </div>
 </template>
@@ -76,7 +78,9 @@ export default class Tags extends Vue {
     flex-wrap: wrap;
     > li {
       $bg: #d9d9d9;
-      background: $bg;
+      background: #999;
+      color: #fff;
+      font-weight: 450;
       $h: 24px;
       height: $h;
       line-height: $h;
@@ -85,7 +89,7 @@ export default class Tags extends Vue {
       margin-right: 12px;
       margin-top: 4px;
       &.selected {
-        background: darken($bg, 25%);
+        background: #f60;
       }
     }
   }

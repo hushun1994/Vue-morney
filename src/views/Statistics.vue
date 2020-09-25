@@ -1,11 +1,15 @@
 <template>
   <Layout>
-    <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type" />
-    <ol>
+    <Tabs
+      class-prefix="type"
+      :data-source="recordTypeList"
+      :value.sync="type"
+    />
+    <ol v-if="groupedList.length > 0">
       <li v-for="(group, index) in groupedList" :key="index">
         <h3 class="title">
           <span>{{ beautify(group.title) }}</span>
-          <span>¥{{group.total}}</span>
+          <span>¥{{ group.total }}</span>
         </h3>
         <ol>
           <li v-for="item in group.items" :key="item.id" class="record">
@@ -16,6 +20,9 @@
         </ol>
       </li>
     </ol>
+    <div v-else class="noResult">
+      <span>添加了记录再来逛哦</span>
+    </div>
   </Layout>
 </template>
 
@@ -66,14 +73,15 @@ export default class Statistics extends Vue {
 
   get groupedList() {
     const { recordList } = this;
-    if (recordList.length < 2) {
-      return recordList;
-    }
+
     const newList = clone(recordList)
       .filter((r) => r.type === this.type)
       .sort((a, b) => {
         return dayjs(b.createAt).valueOf() - dayjs(a.createAt).valueOf();
       });
+    if (newList.length === 0) {
+      return [];
+    }
     type Result = [{ title: string; total?: number; items: RecordItem[] }];
     const result: Result = [
       {
@@ -113,9 +121,9 @@ export default class Statistics extends Vue {
 <style lang="scss" scoped>
 ::v-deep {
   .type-tabs-item {
-    background: #c4c4c4;
+    background: #fff;
     &.selected {
-      background: #fff;
+      background: #c4c4c4;
       &::after {
         display: none;
       }
@@ -142,6 +150,11 @@ export default class Statistics extends Vue {
 .record-notes {
   margin-right: auto;
   margin-left: 16px;
+  color: #999;
+}
+.noResult {
+  padding: 24px;
+  text-align: center;
   color: #999;
 }
 </style>

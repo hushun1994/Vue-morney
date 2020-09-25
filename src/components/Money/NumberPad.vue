@@ -83,7 +83,8 @@ export default class NumberPad extends Vue {
       width: 25%;
       height: 64px;
       float: left;
-      background: transparent;
+      font-weight: 450;
+      background: #6cf;
       border: none;
       &.ok {
         height: 64 * 2px;
@@ -91,35 +92,6 @@ export default class NumberPad extends Vue {
       }
       &.zero {
         width: 25 * 2%;
-      }
-      $bg: #f2f2f2;
-      &:nth-child(1) {
-        background: $bg;
-      }
-      &:nth-child(2),
-      &:nth-child(5) {
-        background: darken($bg, 5%);
-      }
-      &:nth-child(3),
-      &:nth-child(6),
-      &:nth-child(9) {
-        background: darken($bg, 5% * 2);
-      }
-      &:nth-child(4),
-      &:nth-child(7),
-      &:nth-child(10) {
-        background: darken($bg, 5% * 3);
-      }
-      &:nth-child(8),
-      &:nth-child(11),
-      &:nth-child(13) {
-        background: darken($bg, 5% * 4);
-      }
-      &:nth-child(14) {
-        background: darken($bg, 5% * 5);
-      }
-      &:nth-child(12) {
-        background: darken($bg, 5% * 6);
       }
     }
     @media (max-height: 570px) {
