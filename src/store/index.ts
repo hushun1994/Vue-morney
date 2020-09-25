@@ -33,7 +33,7 @@ const store = new Vuex.Store({
     },
     fetchTags(state) {
       state.tagList = JSON.parse(
-        window.localStorage.getItem("tagList") || "[]"
+        window.localStorage.getItem("tagList") || "['衣','食','住','行']"
       );
     },
     createTag(state, name: string) {
