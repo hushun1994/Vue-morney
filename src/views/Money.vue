@@ -4,7 +4,12 @@
     <Tabs :data-source="recordTypeList" :value.sync="record.type" />
     <div class="notes">
       <div class="wrapper">
-        <FormItem fieldName="备注" type="text" placeholder="请在这里输入" :value.sync="record.notes" />
+        <FormItem
+          fieldName="备注"
+          type="text"
+          placeholder="请在这里输入"
+          :value.sync="record.notes"
+        />
       </div>
       <div class="wrapper">
         <FormItem fieldName="日期" type="date" :value.sync="record.createAt" />
@@ -41,11 +46,9 @@ export default class Money extends Vue {
     amount: 0,
     createAt: dayjs().format("YYYY-MM-DD"),
   };
-
   created() {
     this.$store.commit("fetchRecords");
   }
-
   saveRecord() {
     if (this.record.tags.length === 0) {
       return window.alert("请选择标签");

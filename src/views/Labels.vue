@@ -44,6 +44,10 @@ export default class Labels extends Vue {
       }
     } else {
       this.$store.commit("createTag", name);
+      const error = this.$store.state.createTagError;
+      if (error) {
+        window.alert(error);
+      }
     }
   }
 }

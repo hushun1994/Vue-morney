@@ -23,6 +23,8 @@ type TagListModel = {
 type RootState = {
   recordList: RecordItem[];
   tagList: Tag[];
+  createTagError: Error | null;
+  updateTagError: Error | null;
   currentTag?: Tag;
   selectedTags?: string[];
 };

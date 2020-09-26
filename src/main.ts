@@ -6,6 +6,7 @@ import store from "./store";
 import Layout from "@/components/Layout.vue";
 import Nav from "@/components/Nav.vue";
 import Icon from "@/components/Icon.vue";
+import { nextTick } from "vue/types/umd";
 
 Vue.config.productionTip = false;
 

@@ -1,7 +1,7 @@
 <template>
   <div class="tags">
     <div class="new">
-      <button @click="create">新增标签</button>
+      <button @click="createTag">新增标签</button>
     </div>
     <ul class="current">
       <li
@@ -49,7 +49,7 @@ export default class Tags extends Vue {
     this.$emit("update:value", this.selectedTags);
   }
 
-  create() {
+  createTag() {
     const name = window.prompt("请输入标签名");
     if (!name) {
       if (name === "") {
@@ -59,6 +59,10 @@ export default class Tags extends Vue {
       }
     } else {
       this.$store.commit("createTag", name);
+      const error = this.$store.state.createTagError;
+      if (error) {
+        window.alert(error);
+      }
     }
   }
 }

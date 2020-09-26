@@ -54,7 +54,12 @@ export default class EditLabel extends Vue {
     }
   }
   goBack() {
-    this.$router.back();
+    const error = this.$store.state.updateTagError;
+    if (error) {
+      window.alert(error);
+    } else {
+      this.$router.back();
+    }
   }
 }
 </script>
