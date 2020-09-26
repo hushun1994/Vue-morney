@@ -38,14 +38,11 @@ const store = new Vuex.Store({
         window.localStorage.getItem("tagList") || "[]"
       );
       if (state.tagList.length === 0) {
-        state.tagList = [
-          { id: createId().toString(), name: "衣" },
-          { id: createId().toString(), name: "食" },
-          { id: createId().toString(), name: "住" },
-          { id: createId().toString(), name: "行" },
-        ];
+        store.commit("createTag", "衣");
+        store.commit("createTag", "食");
+        store.commit("createTag", "住");
+        store.commit("createTag", "行");
       }
-      store.commit("saveTags");
     },
     createTag(state, name: string) {
       state.createTagError = null;
